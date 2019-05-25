@@ -1,0 +1,115 @@
+Angular 7 einach lernen
+
+### Teil 3 Angular cli ###
+
+mk dir Angular-Tutorial
+mk dir server
+
+npm install -g @angular/cli
+npm uninstall -g @angular/cli
+npm cache verify
+npm install -g @angular/cli@latest #cli@7.3.9
+##IUpdate Local Project:
+npm install --save-dev @angular/cli@latest
+https://github.com/angular/angular-cli/issues/13095
+polyfill required :https://stackoverflow.com/questions/55752755/migration-from-angular-6-to-angular-7-cause-error-cant-resolve-core-js-es7-r
+
+ng new ToDoList /no routing /SASS
+
+cd ToDoList
+
+ng g c page-list
+ng g c _template/template-todo
+ng g c _template/template-todo-form
+ng g c _template/template-todo-header
+
+ng g s _service/data
+
+ng g i _interface/todo
+ng g i _interface/event
+
+ng serve --open
+in _intervace
+export interface Letsdo {
+  id: number;
+  labe?: string;
+  status: boolean;
+}
+******************************************
+in assets/fonts
+ @font-face {
+     font-family: Roboto;
+     src: url("./assets/fonts/Roboto-Regular.ttf");
+     font-weight: regular;
+   }
+  svgs in assets/csv
+ ******************************************** 
+  style.sass : @import './sass/var'
+  
+::selection
+  background-color: $prime
+  color:  $white
+
+*
+  box-sizing: border-box
+
+body, html 
+  margin: 0
+  padding: 0
+  font-size: 14px
+  background-color: $second
+ ******************************
+ app.component.html alles löschen
+ <app-page-list></app-page-list> page-list einbinden
+ 
+ page-list-component.html
+	<app-template-letsdo-header></app-template-letsdo-header> 
+ 
+ page-list-component.sass
+	@import "../../../sass/_var"
+
+	header
+	  border-top: $cube*0.5 solid $prime
+	  width: 100%
+	  padding: $cube*2
+
+	h1 
+	  font-family: $font1
+	  color: $white
+	  line-height: 0.8em
+	  font-weight: bold
+	  font-size: $cube*6
+	  text-transform: uppercase
+	  margin: 0
+	  padding: 0
+	  span 
+		color:  $prime
+		
+template-letsdo-header-component.sass
+	@import "../../sass/_var"
+
+	.list-view
+	  width: 100%
+	  padding: $cube*2
+	  h4
+		color: $white
+		font-size: $cube*3
+		margin: 0 0 $cube*2 0
+		padding: 0
+		font-weight: regular 
+		transition: all 500ms
+		cursor: pointer
+		span
+		  font-size: $cube*1.5
+	  
+	  h4:hover 
+		color: $prime
+	  
+  .todo-elemets
+	width: 100%
+	margin: 0
+	display: flex
+		
+ 
+  
+  

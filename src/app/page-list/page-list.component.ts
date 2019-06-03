@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageListComponent implements OnInit {
 
+  public letsdoShow = true;
+  public letsdoDoneShow = false;
   constructor() { }
 
   ngOnInit() {

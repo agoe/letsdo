@@ -1,8 +1,11 @@
 @import  "../../../sass/_var"
 
-.tudo-form
-  widows: 100%
-  margin: 0 0 $cube*2 0
+.todo-form
+  width: 100%
+  background-color: $white
+  //margin: 0 0 $cube*2 0
+  margin: 0
+  border: $cube solid $second
   display: flex
   flex-flow: row
   justify-content: space-between
@@ -14,7 +17,7 @@
     flex-flow: row
     justify-content: flex-start
     align-items: stretch
-    input:
+    input
       font-family: $font2
       font-size: $cube*2
       padding: $cube*2
@@ -23,3 +26,25 @@
       width: 100%
       border: none
       word-break: break-word
+    input::placeholder
+      opacity: none
+      font-style: italic
+      color: $second
+    input::focus
+      outline: none
+  .create
+    color: $white
+    font-family: $font2
+    font-size: $cube*2
+    padding: $cube*2
+    cursor: pointer
+    border-left: solid $cube*0.1 $second
+    background-color: $prime
+    span
+      height: 100%
+      width: 100%
+      display: flex
+      flex-flow: row
+      justify-content: center
+      align-items: center
+    

@@ -1,0 +1,78 @@
+@import '../../../sass/_var'
+
+.letsdo
+    width: 100%
+    background-color: $white  
+    //margin: 0 0 $cube 0
+    margin: 0
+    display: flex
+    flex-flow: row
+    justify-content: space-between
+    align-items: stretch
+    height: 100%
+    .letsdo-content
+        width: 100%
+        display: flex
+        flex-flow: row
+        justify-content: flex-start
+        align-items: center
+        border: $cube solid $second
+        .handle
+            background-color: $prime
+            height: 100%
+            display: flex
+            flex-flow: row
+            padding: 0 $cube*0 0 $cube*0
+            justify-content: center
+            align-items: center
+            cursor: grab
+            img 
+                width: $cube*2
+                height: $cube*2
+        .letsdo-content-check
+            display: flex
+            margin-left: $cube*2 //margin $cube*2
+            flex-flow: row
+            justify-content: center
+            align-items: center
+            cursor: pointer
+            img 
+                width: $cube*4
+                height: $cube*4
+        .letsdo-content-title
+            width: 100%
+            input 
+                font-family: $font2
+                font-size: $cube*2
+                padding: $cube*2
+                color: $second
+                width: 100%
+                border: none
+                word-break: break-word
+            input::placeholder
+                opacity: 0.5
+                font-style: italic
+            input::focus
+                outline: none
+    .delete
+        background-color: $red
+        color: $white
+        font-family: $font2
+        font-size: $cube*2
+        padding: $cube*2
+        cursor: poinetr
+        span 
+            height: 100%
+            width: 100%
+            display: flex
+            flex-flow: row
+            justify-content: center
+            align-items: center
+.letsdo.done
+    .letsdo-content
+        .handle
+            display: none
+        .letsdo-content-title
+            input 
+                opacity: 0.3
+                text-decoration: line-through            

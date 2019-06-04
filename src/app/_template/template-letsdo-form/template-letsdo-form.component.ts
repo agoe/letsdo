@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Letsdo } from '../../_interface/letsdo';
+import { EventEnum, LetsdoEvent } from '../../_interface/letsdo-event';
 
 
 @Component({
@@ -9,9 +11,11 @@ import { Letsdo } from '../../_interface/letsdo';
 })
 export class TemplateLetsdoFormComponent implements OnInit {
 
-  public letsdo: Letsdo;
+  letsdo$: Letsdo;
+  @Output() $letsdoEmitter: EventEmitter<LetsdoEvent> =new EventEmitter<LetsdoEvent>();
+
   constructor() {
-    this.letsdo = {
+    this.letsdo$ = {
       id: undefined,
       label: undefined,
       status: false,
@@ -20,7 +24,14 @@ export class TemplateLetsdoFormComponent implements OnInit {
    }
 
    public createLetsdo(event :any) :void{
-      console.log("create "+this.letsdo.label)
+      console.log("create "+this.letsdo$.label);
+      const copyLetsdo= {... this.letsdo$}; // simple es6 clone
+
+      const letsdoEvent : LetsdoEvent={
+        label: EventEnum.CREATE,
+        object: copyLetsdo
+      }
+      this.$letsdoEmitter.emit(letsdoEvent);
    }
   ngOnInit() {
   }

@@ -1,14 +1,15 @@
 <app-template-letsdo-header></app-template-letsdo-header>
 <div class="list-view">
-  <h4 (click)="letsdoShow=!letsdoShow">Offen <span>( 2 )</span></h4>
+  <h4 (click)="letsdoShow=!letsdoShow">Offen <span>{{$letsdos.length}}</span></h4>
   <div *ngIf="letsdoShow" class='todo-elements'>
-    <app-template-letsdo></app-template-letsdo>
-    <app-template-letsdo></app-template-letsdo>
+    <app-template-letsdo ($letsdoEmitter)="update($event)" [letsdo$]="letsdo"
+     *ngFor="let letsdo of $letsdos"></app-template-letsdo>
   </div>
   
-  <app-template-letsdo-form *ngIf="letsdoShow"></app-template-letsdo-form>
-  <h4  (click)="letsdoDoneShow=!letsdoDoneShow">Erledigt <span>( 2 )</span></h4>
+  <app-template-letsdo-form ($letsdoEmitter)="update($event)" *ngIf="letsdoShow"></app-template-letsdo-form>
+  <h4  (click)="letsdoDoneShow=!letsdoDoneShow">Erledigt <span>{{$letsdosDone.length}}</span></h4>
   <div *ngIf="letsdoDoneShow"class="todo-elements">
-      <app-template-letsdo></app-template-letsdo>
+      <app-template-letsdo ($letsdoEmitter)="update($event)" [letsdo$]="letsdo"
+      *ngFor="let letsdo of $letsdosDone"></app-template-letsdo>
   </div>
 </div>

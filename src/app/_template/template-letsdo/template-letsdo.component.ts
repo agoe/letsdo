@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { LetsdoEvent, EventEnum } from "../../_interface/letsdo-event";
+import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 import { Letsdo } from '../../_interface/letsdo';
+
+
+
 
 @Component({
   selector: 'app-template-letsdo',
@@ -8,24 +12,37 @@ import { Letsdo } from '../../_interface/letsdo';
 })
 export class TemplateLetsdoComponent implements OnInit {
 
-  public letsdo: Letsdo;
+  
+  @Input() letsdo$: Letsdo;
+  @Output() $letsdoEmitter: EventEmitter<any> = new EventEmitter<any>();
   constructor() {
-    this.letsdo = {
-      id: 1,
-      label:"Hallo",
-      status: false,
-      position: 1
-    }
+   
    }
 
    public checked(event :any) :void{
-      this.letsdo.status = !this.letsdo.status;
+      this.letsdo$.status = !this.letsdo$.status;
+      const letsdoEvent : LetsdoEvent={
+        label: EventEnum.CHECK,
+        object: this.letsdo$
+      }
+      this.$letsdoEmitter.emit(letsdoEvent);
+
    }
    public changeLetsdo(event :any) :void{
-    console.log(this.letsdo.label);
+    console.log(this.letsdo$.label);
+    const letsdoEvent : LetsdoEvent={
+      label: EventEnum.UPDATE,
+      object: this.letsdo$
+    }
+    this.$letsdoEmitter.emit(letsdoEvent);
    }
 public deleteLetsdo(event :any) :void{
-    console.log("delete "+this.letsdo.label);
+    console.log("delete "+this.letsdo$.label);
+    const letsdoEvent : LetsdoEvent={
+      label: EventEnum.DELETE,
+      object: this.letsdo$
+    }
+    this.$letsdoEmitter.emit(letsdoEvent);
 }
 
   ngOnInit() {

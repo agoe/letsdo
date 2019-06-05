@@ -1,20 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from "rxjs";
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Letsdo } from '../_interface/letsdo';
 import { LetsdoEvent, EventEnum } from '../_interface/letsdo-event';
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'app-page-list',
   templateUrl: './page-list.component.html',
   styleUrls: ['./page-list.component.sass']
 })
-export class PageListComponent implements OnInit {
+export class PageListComponent implements OnInit, OnDestroy {
+  
 
   public letsdoShow = true;
   public letsdoDoneShow = false;
   public $letsdos :Letsdo[];
   public $letsdosDone :Letsdo[] = new Array();
-  constructor() {
-    this.$letsdos = [
+  public subscriptions = new Subscription();
+
+  readonly  LESTSDOGROUP = "letsdogroup"; // for DnD
+
+  constructor(
+    public _dragulaService: DragulaService) 
+
+    {
+      this._dragulaService.createGroup(this.LESTSDOGROUP,{removeOnSpill: false});
+
+      this.subscriptions.add(_dragulaService.drop(this.LESTSDOGROUP)
+        .subscribe(( {el} ) => { console.log(el);
+                                 this.recalcPosition(); 
+            })
+        );
+  
+      this.$letsdos = [
       {id: 1,
       label: "testalbe1l",
       status: false,
@@ -22,10 +40,16 @@ export class PageListComponent implements OnInit {
       {id: 2,
         label: "testalbel2",
         status: false,
-        position: 2}
+        position: 1}
     ]
    }
-
+   public recalcPosition() :void {
+      let pos = 0;
+      this.$letsdos.forEach((letsdo: Letsdo) => {
+        pos++;
+        letsdo.position = pos;
+      })
+   }
 
 
   public update(event: LetsdoEvent): void{
@@ -52,6 +76,7 @@ export class PageListComponent implements OnInit {
     }else if (EventEnum.CREATE === event.label){
       event.object.position = this.$letsdos.length + 1;
       this.$letsdos.push(event.object);
+      this.recalcPosition();
 
     }else if (EventEnum.UPDATE === event.label){
       console.log("%c"+event.label+"Event fired.","color: green");
@@ -72,7 +97,9 @@ export class PageListComponent implements OnInit {
     } //End UPDATE
     
   }
-
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
   ngOnInit() {
   }
 

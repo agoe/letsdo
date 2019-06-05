@@ -1,7 +1,8 @@
 <app-template-letsdo-header></app-template-letsdo-header>
 <div class="list-view">
   <h4 (click)="letsdoShow=!letsdoShow">Offen <span>{{$letsdos.length}}</span></h4>
-  <div *ngIf="letsdoShow" class='todo-elements'>
+  <div dragula="{{LESTSDOGROUP}}" [dragulaModel]="$letsdos" 
+    (dragulaModelChange)="$letsdos = $event" *ngIf="letsdoShow" class='todo-elements'>
     <app-template-letsdo ($letsdoEmitter)="update($event)" [letsdo$]="letsdo"
      *ngFor="let letsdo of $letsdos"></app-template-letsdo>
   </div>
